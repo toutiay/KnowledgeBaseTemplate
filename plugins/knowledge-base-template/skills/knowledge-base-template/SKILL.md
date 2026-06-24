@@ -1,87 +1,87 @@
 ﻿---
 name: knowledge-base-template
-description: Use when the user wants to maintain a lightweight personal knowledge base: ingest raw articles, notes, PDFs, transcripts, meeting notes, ideas, or links into raw/ and wiki/; update or merge wiki pages; answer from this knowledge base; or validate the knowledge base structure.
+description: 当用户想维护轻量个人知识库时使用：把文章、笔记、PDF、转写稿、会议纪要、想法或链接入库到 raw/ 和 wiki/；更新或合并 wiki 页面；基于知识库问答；校验知识库结构。
 ---
 
 # Knowledge Base Template
 
-This skill turns a plugin directory into a lightweight personal knowledge base for Codex.
+这个 skill 用于让 Codex 按固定结构维护一个轻量个人知识库。
 
-## Directory Contract
+## 目录约定
 
-The knowledge base root is the plugin root that contains:
+知识库根目录就是插件根目录，里面包含：
 
-- `raw/`: original source materials and evidence.
-- `wiki/`: organized, reusable knowledge pages.
-- `context/`: long-term background and project context.
-- `_system/`: prompts, templates, and validation scripts for Codex.
+- `raw/`：原始资料层，用来保存来源材料和证据。
+- `wiki/`：知识页层，用来保存整理后的、可复用的知识。
+- `context/`：长期背景、项目约束和补充上下文。
+- `_system/`：给 Codex 使用的提示词、模板和校验脚本。
 
-When this plugin is installed, resolve the knowledge base root as two directories above this file:
+插件安装后，可以把本文件向上两级作为知识库根目录：
 
 ```text
-skills/knowledge-base-template/SKILL.md -> ../.. -> plugin root
+skills/knowledge-base-template/SKILL.md -> ../.. -> 插件根目录
 ```
 
-## Triggered Workflows
+## 触发场景
 
-Use this skill when the user asks to:
+当用户提出以下需求时，使用这个 skill：
 
-- add material to the knowledge base
-- ingest, archive, preserve, or organize raw content
-- create, update, merge, or deduplicate wiki pages
-- answer questions based on the knowledge base
-- generate an index, topic page, source page, concept page, process page, or comparison page
-- validate or repair the knowledge base structure
+- 把资料加入知识库
+- 入库、归档、保存或整理原始内容
+- 新建、更新、合并或去重 wiki 页面
+- 基于这个知识库回答问题
+- 生成索引页、来源页、主题页、概念页、流程页或对比页
+- 校验或修复知识库结构
 
-## Ingest Rules
+## 入库规则
 
-For ingest/update requests:
+处理入库或更新请求时：
 
-1. Read `_system/prompts/ingest-and-update-wiki.md`.
-2. Inspect existing `wiki/` pages before creating new pages.
-3. Save or reference the original material under `raw/`.
-4. Create or update pages under the matching `wiki/` section:
-   - `00 索引/` for indexes and navigation.
-   - `10 来源/` for source pages.
-   - `20 主题/` for topic synthesis.
-   - `30 概念/` for concepts and terms.
-   - `40 流程/` for procedures and workflows.
-   - `50 对比/` for comparisons.
-5. Prefer updating and merging existing pages over duplicating pages.
-6. Keep claims traceable to raw sources whenever possible.
-7. Mark uncertainty explicitly instead of inventing missing facts.
+1. 先阅读 `_system/prompts/ingest-and-update-wiki.md`。
+2. 新建页面前，先检查已有 `wiki/` 页面，避免重复建页。
+3. 将原始资料保存或引用到 `raw/`。
+4. 根据内容类型，在对应的 `wiki/` 子目录中新建或更新页面：
+   - `00 索引/`：索引和导航。
+   - `10 来源/`：来源页。
+   - `20 主题/`：主题综合整理。
+   - `30 概念/`：概念、术语和定义。
+   - `40 流程/`：步骤、流程和操作手册。
+   - `50 对比/`：方案、观点或工具对比。
+5. 优先更新、合并已有页面，不要轻易制造重复页面。
+6. 重要结论尽量追溯到 `raw/` 来源。
+7. 不确定的内容要明确标记，不要编造。
 
-## Question Answering
+## 基于知识库问答
 
-For questions about the knowledge base:
+回答知识库相关问题时：
 
-1. Read `_system/prompts/ask-my-kb.md`.
-2. Prefer `wiki/` for synthesized knowledge.
-3. Check `raw/` when the source evidence matters or when `wiki/` is incomplete.
-4. If `wiki/` and `raw/` conflict, treat `raw/` as authoritative and mention the conflict.
-5. Clearly label any external knowledge as external.
+1. 先阅读 `_system/prompts/ask-my-kb.md`。
+2. 优先读取 `wiki/`，因为它是整理后的知识层。
+3. 当来源证据重要，或 `wiki/` 信息不足时，回查 `raw/`。
+4. 如果 `wiki/` 和 `raw/` 冲突，以 `raw/` 为准，并指出冲突。
+5. 如需补充外部知识，必须明确标注“外部补充”。
 
-## Validation
+## 校验
 
-For validation or repair requests, run from the plugin root:
+当用户要求校验或修复知识库时，在插件根目录运行：
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File _system/scripts/validate-kb.ps1
 ```
 
-Use strict validation when the user asks for schema checks:
+当用户要求严格 schema 检查时运行：
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File _system/scripts/validate-kb.ps1 -StrictSchema
 ```
 
-If validation reports missing directories or fixable structure problems, repair them within the knowledge base root and rerun validation.
+如果校验报告缺少目录、断链或其他可自动修复的问题，优先在知识库根目录内修复，然后重新运行校验。
 
-## Output Expectations
+## 输出要求
 
-After changing the knowledge base, report:
+每次修改知识库后，向用户说明：
 
-- raw files added or updated
-- wiki files added, updated, or merged
-- key conclusions extracted
-- unresolved conflicts or questions needing user confirmation
+- 新增或更新了哪些 raw 文件
+- 新增、更新或合并了哪些 wiki 页面
+- 提炼出的关键结论
+- 仍需用户确认的冲突或问题

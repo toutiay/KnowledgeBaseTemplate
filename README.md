@@ -1,40 +1,40 @@
-﻿# Knowledge Base Template Codex Plugin
+﻿# Knowledge Base Template Codex 插件
 
-This repository is a Codex plugin marketplace for `knowledge-base-template`.
+这是一个 Codex 插件市场仓库，里面提供 `knowledge-base-template` 插件。
 
-The plugin lives in:
+插件目录是：
 
 ```text
 plugins/knowledge-base-template/
 ```
 
-It provides a lightweight personal knowledge base structure:
+这个插件用于维护一个轻量个人知识库：
 
-- `raw/` keeps original source materials.
-- `wiki/` keeps reusable source-linked knowledge pages.
-- `context/` keeps long-term background.
-- `_system/` keeps prompts, templates, and validation scripts.
+- `raw/` 保存原始资料和证据。
+- `wiki/` 保存整理后的、可复用的知识页。
+- `context/` 保存长期背景和项目上下文。
+- `_system/` 保存提示词、模板和校验脚本。
 
-## Install
+## 安装
 
-Add this repository as a local Codex plugin marketplace, then install:
+把本仓库作为本地 Codex 插件市场添加，然后安装插件：
 
 ```powershell
 codex plugin marketplace add D:\project\dgr\KnowledgeBaseTemplate
 codex plugin add knowledge-base-template@knowledge-base-template
 ```
 
-After installing or updating the plugin, start a new Codex thread so the skill is loaded.
+安装或更新插件后，请新开一个 Codex 线程，这样 Codex 才会加载新的 skill。
 
-## Plugin Name
+## 插件名
 
 ```text
 knowledge-base-template
 ```
 
-## Use
+## 使用示例
 
-Ask Codex things like:
+你可以这样对 Codex 说：
 
 ```text
 把这份资料加入知识库，并更新 wiki。
