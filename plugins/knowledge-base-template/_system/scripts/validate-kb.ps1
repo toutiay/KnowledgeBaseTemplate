@@ -101,51 +101,45 @@ if (Test-Path -LiteralPath $wiki) {
 
 $wikiSections = @{
   "00" = @{
-    Name = -join ([char[]](0x7D22, 0x5F15))
+    Name = "index"
     Type = "index"
     Aliases = @(
-      -join ([char[]](0x7D22, 0x5F15)),
-      -join ([char[]](0x7D22, 0x5F15, 0x9875))
+      "index"
     )
   }
   "10" = @{
-    Name = -join ([char[]](0x6765, 0x6E90))
+    Name = "source"
     Type = "source"
     Aliases = @(
-      -join ([char[]](0x6765, 0x6E90)),
-      -join ([char[]](0x6765, 0x6E90, 0x9875))
+      "source"
     )
   }
   "20" = @{
-    Name = -join ([char[]](0x4E3B, 0x9898))
+    Name = "topic"
     Type = "topic"
     Aliases = @(
-      -join ([char[]](0x4E3B, 0x9898)),
-      -join ([char[]](0x4E3B, 0x9898, 0x9875))
+      "topic"
     )
   }
   "30" = @{
-    Name = -join ([char[]](0x6982, 0x5FF5))
+    Name = "concept"
     Type = "concept"
     Aliases = @(
-      -join ([char[]](0x6982, 0x5FF5)),
-      -join ([char[]](0x6982, 0x5FF5, 0x9875))
+      "concept"
     )
   }
   "40" = @{
-    Name = -join ([char[]](0x6D41, 0x7A0B))
+    Name = "process"
     Type = "process"
     Aliases = @(
-      -join ([char[]](0x6D41, 0x7A0B)),
-      -join ([char[]](0x6D41, 0x7A0B, 0x9875))
+      "process"
     )
   }
   "50" = @{
-    Name = -join ([char[]](0x5BF9, 0x6BD4))
+    Name = "comparison"
     Type = "comparison"
     Aliases = @(
-      -join ([char[]](0x5BF9, 0x6BD4)),
-      -join ([char[]](0x5BF9, 0x6BD4, 0x9875))
+      "comparison"
     )
   }
 }
