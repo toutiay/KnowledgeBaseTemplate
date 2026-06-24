@@ -1,0 +1,18 @@
+{
+  "name": "knowledge-base-template",
+  "version": "0.1.0",
+  "description": "Knowledge Base Template plugin",
+  "author": {
+    "name": "Local developer"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Knowledge Base Template",
+    "shortDescription": "Use Knowledge Base Template in Codex.",
+    "longDescription": "Knowledge Base Template adds a local Codex plugin scaffold.",
+    "developerName": "Local developer",
+    "category": "Productivity",
+    "capabilities": [],
+    "defaultPrompt": "Help me use Knowledge Base Template."
+  }
+}
