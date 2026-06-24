@@ -16,6 +16,10 @@ function Get-DefaultKnowledgeBaseRoot {
   return Join-Path ([Environment]::GetFolderPath("MyDocuments")) "Codex\KnowledgeBase"
 }
 
+function Join-Chars([int[]]$Codes) {
+  return -join ($Codes | ForEach-Object { [char]$_ })
+}
+
 if ([string]::IsNullOrWhiteSpace($Root)) {
   $defaultRoot = Get-DefaultKnowledgeBaseRoot
   if ($UseDefault) {
@@ -41,15 +45,22 @@ if (-not [IO.Path]::IsPathRooted($root)) {
 
 $root = [IO.Path]::GetFullPath($root)
 
+$indexName = Join-Chars @(0x7D22, 0x5F15)
+$sourceName = Join-Chars @(0x6765, 0x6E90)
+$topicName = Join-Chars @(0x4E3B, 0x9898)
+$conceptName = Join-Chars @(0x6982, 0x5FF5)
+$processName = Join-Chars @(0x6D41, 0x7A0B)
+$comparisonName = Join-Chars @(0x5BF9, 0x6BD4)
+
 $dirs = @(
   "raw",
   "wiki",
-  "wiki\00 索引",
-  "wiki\10 来源",
-  "wiki\20 主题",
-  "wiki\30 概念",
-  "wiki\40 流程",
-  "wiki\50 对比",
+  "wiki\00 $indexName",
+  "wiki\10 $sourceName",
+  "wiki\20 $topicName",
+  "wiki\30 $conceptName",
+  "wiki\40 $processName",
+  "wiki\50 $comparisonName",
   "context"
 )
 

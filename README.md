@@ -38,13 +38,44 @@ C:\Users\admin\Documents\Codex\KnowledgeBase
 .agents/plugins/marketplace.json
 ```
 
-测试阶段推荐使用安装脚本。它会安装插件，并询问知识库存储地址：
+推荐安装策略：
+
+1. 优先使用 GitHub zip 下载整个仓库。
+2. 解压到本地固定插件目录，例如 `D:\CodexPlugins\KnowledgeBaseTemplate-master`。
+3. 从这个本地固定目录注册 marketplace 并安装插件。
+4. 如果 GitHub zip 下载失败，再退回 GitHub API 或 GitHub 连接器逐文件读取。
+
+公开仓库可直接用 GitHub zip 安装：
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File scripts\install-local.ps1
+$zip = "$env:TEMP\KnowledgeBaseTemplate.zip"
+$dest = "D:\CodexPlugins"
+$repo = Join-Path $dest "KnowledgeBaseTemplate-master"
+
+New-Item -ItemType Directory -Force -Path $dest | Out-Null
+Invoke-WebRequest `
+  -Uri "https://github.com/toutiay/KnowledgeBaseTemplate/archive/refs/heads/master.zip" `
+  -OutFile $zip
+Expand-Archive -Path $zip -DestinationPath $dest -Force
+
+codex plugin marketplace add $repo
+codex plugin add knowledge-base-template@personal
+powershell -ExecutionPolicy Bypass -File "$repo\plugins\knowledge-base-template\_system\scripts\initialize-kb.ps1"
 ```
 
-提示输入知识库目录时：
+安装插件：
+
+```powershell
+codex plugin add knowledge-base-template@personal
+```
+
+然后初始化知识库目录。初始化脚本会询问知识库存储地址：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File plugins\knowledge-base-template\_system\scripts\initialize-kb.ps1
+```
+
+提示输入目录时：
 
 - 输入一个目录：使用你输入的目录。
 - 直接回车：使用默认目录 `%USERPROFILE%\Documents\Codex\KnowledgeBase`。
@@ -53,7 +84,8 @@ powershell -ExecutionPolicy Bypass -File scripts\install-local.ps1
 
 ```powershell
 codex plugin marketplace add D:\project\dgr\KnowledgeBaseTemplate
-powershell -ExecutionPolicy Bypass -File scripts\install-local.ps1
+codex plugin add knowledge-base-template@personal
+powershell -ExecutionPolicy Bypass -File plugins\knowledge-base-template\_system\scripts\initialize-kb.ps1
 ```
 
 Windows 上如果 `codex.exe` 命令被 WindowsApps 别名拦截并返回 `Access is denied`，可以改用用户级插件运行时：

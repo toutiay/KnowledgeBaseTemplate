@@ -1,6 +1,6 @@
 {
   "name": "knowledge-base-template",
-  "version": "0.1.0+codex.20260624070449",
+  "version": "0.1.0+codex.20260624072820",
   "description": "A Codex plugin for maintaining a lightweight personal knowledge base with raw sources and reusable wiki pages.",
   "author": {
     "name": "Knowledge Base Template maintainers"
