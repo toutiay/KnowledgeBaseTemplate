@@ -1,6 +1,6 @@
 {
   "name": "knowledge-base-template",
-  "version": "0.1.0",
+  "version": "0.1.0+codex.20260624070449",
   "description": "A Codex plugin for maintaining a lightweight personal knowledge base with raw sources and reusable wiki pages.",
   "author": {
     "name": "Knowledge Base Template maintainers"
@@ -12,11 +12,14 @@
     "longDescription": "Knowledge Base Template helps Codex preserve raw materials, update reusable wiki pages, answer from the knowledge base, and validate the vault structure.",
     "developerName": "Knowledge Base Template maintainers",
     "category": "Productivity",
-    "capabilities": ["Read", "Write"],
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
     "defaultPrompt": [
-      "把这份资料加入知识库，并更新 wiki。",
-      "基于这个知识库回答我的问题。",
-      "检查知识库结构并修复可自动修复的问题。"
+      "\u628a\u8fd9\u4efd\u8d44\u6599\u52a0\u5165\u77e5\u8bc6\u5e93\uff0c\u5e76\u66f4\u65b0 wiki\u3002",
+      "\u57fa\u4e8e\u8fd9\u4e2a\u77e5\u8bc6\u5e93\u56de\u7b54\u6211\u7684\u95ee\u9898\u3002",
+      "\u68c0\u67e5\u77e5\u8bc6\u5e93\u7ed3\u6784\u5e76\u4fee\u590d\u53ef\u81ea\u52a8\u4fee\u590d\u7684\u95ee\u9898\u3002"
     ]
   }
 }

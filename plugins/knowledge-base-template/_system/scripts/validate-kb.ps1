@@ -1,10 +1,51 @@
 param(
+  [string]$Root,
   [switch]$StrictSchema
 )
 
 $ErrorActionPreference = "Stop"
 
-$root = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $PSCommandPath))
+function Get-DefaultKnowledgeBaseRoot {
+  if ($env:CODEX_KB_HOME) {
+    return $env:CODEX_KB_HOME
+  }
+  return Join-Path ([Environment]::GetFolderPath("MyDocuments")) "Codex\KnowledgeBase"
+}
+
+function Get-ConfiguredKnowledgeBaseRoot {
+  $configPath = Join-Path $env:USERPROFILE ".codex\knowledge-base-template\config.json"
+  if (-not (Test-Path -LiteralPath $configPath)) {
+    return $null
+  }
+
+  try {
+    $config = Get-Content -LiteralPath $configPath -Raw -Encoding utf8 | ConvertFrom-Json
+    if ($config.knowledgeBaseRoot -and -not [string]::IsNullOrWhiteSpace($config.knowledgeBaseRoot)) {
+      return $config.knowledgeBaseRoot
+    }
+  } catch {
+    Write-Warning "Unable to read knowledge base config: $configPath"
+  }
+
+  return $null
+}
+
+if ([string]::IsNullOrWhiteSpace($Root)) {
+  $configuredRoot = Get-ConfiguredKnowledgeBaseRoot
+  if ($configuredRoot) {
+    $root = $configuredRoot
+  } else {
+    $root = Get-DefaultKnowledgeBaseRoot
+  }
+} else {
+  $root = $Root
+}
+
+if (-not [IO.Path]::IsPathRooted($root)) {
+  $root = Join-Path (Get-Location) $root
+}
+
+$root = [IO.Path]::GetFullPath($root)
 $wiki = Join-Path $root "wiki"
 $raw = Join-Path $root "raw"
 
@@ -212,6 +253,7 @@ if (Test-Path -LiteralPath $raw) {
 
 Write-Output "KB validation"
 Write-Output "-------------"
+Write-Output "root: $root"
 Write-Output "raw markdown files: $rawMarkdownCount"
 Write-Output "wiki pages: $($wikiFiles.Count)"
 Write-Output "source pages: $($sourcePages.Count)"
