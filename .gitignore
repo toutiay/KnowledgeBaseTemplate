@@ -1,4 +1,4 @@
-﻿.codex_tmp/
+.codex_tmp/
 .agents/*
 !.agents/plugins/
 !.agents/plugins/marketplace.json

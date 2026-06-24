@@ -1,4 +1,4 @@
-﻿# Knowledge Base Template Codex 插件
+# Knowledge Base Template Codex 插件
 
 这是一个 Codex 插件市场仓库，里面提供 `knowledge-base-template` 插件。
 
@@ -17,11 +17,29 @@ plugins/knowledge-base-template/
 
 ## 安装
 
-把本仓库作为本地 Codex 插件市场添加，然后安装插件：
+本仓库已经包含默认的 personal marketplace 配置：
+
+```text
+.agents/plugins/marketplace.json
+```
+
+在本仓库目录下安装插件：
+
+```powershell
+codex plugin add knowledge-base-template@personal
+```
+
+如果你的环境没有自动发现本仓库的 marketplace，或者你想把这个仓库作为一个非默认本地市场显式注册，再运行：
 
 ```powershell
 codex plugin marketplace add D:\project\dgr\KnowledgeBaseTemplate
-codex plugin add knowledge-base-template@knowledge-base-template
+codex plugin add knowledge-base-template@personal
+```
+
+Windows 上如果 `codex.exe` 命令被 WindowsApps 别名拦截并返回 `Access is denied`，可以改用用户级插件运行时：
+
+```powershell
+& "$env:USERPROFILE\.codex\plugins\.plugin-appserver\codex.exe" plugin add knowledge-base-template@personal
 ```
 
 安装或更新插件后，请新开一个 Codex 线程，这样 Codex 才会加载新的 skill。

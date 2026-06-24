@@ -1,4 +1,4 @@
-﻿---
+---
 name: knowledge-base-template
 description: 当用户想维护轻量个人知识库时使用：把文章、笔记、PDF、转写稿、会议纪要、想法或链接入库到 raw/ 和 wiki/；更新或合并 wiki 页面；基于知识库问答；校验知识库结构。
 ---
